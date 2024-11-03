@@ -8,6 +8,7 @@ import (
 	"gonum.org/v1/hdf5"
 )
 
+// Create an empty dataset. If necessary, also create intermediate groups.
 func Touch(f *hdf5.File, name string, t *hdf5.Datatype) error {
 	if strings.HasSuffix(name, "/") {
 		return fmt.Errorf("name ends with a slash")
@@ -41,6 +42,7 @@ func Touch(f *hdf5.File, name string, t *hdf5.Datatype) error {
 	return fmt.Errorf("is not a dataset: %v", path.Join(f.Name(), name))
 }
 
+// Create a group. If necessary, also create intermediate groups.
 func TouchGroup(f *hdf5.File, name string) error {
 	pl := strings.Split(name, "/")
 	for i := range len(pl) + 1 {
