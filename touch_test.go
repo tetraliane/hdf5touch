@@ -21,7 +21,7 @@ func TestCreateGroups(t *testing.T) {
 	}
 	defer f.Close()
 
-	err = hdf5touch.Touch(f, "a/b")
+	err = hdf5touch.TouchGroup(f, "a/b")
 
 	if assert.NoError(t, err) {
 		assert.True(t, f.LinkExists("a"))
@@ -36,12 +36,12 @@ func TestOkWhenTheGroupExists(t *testing.T) {
 	}
 	defer f.Close()
 
-	err = hdf5touch.Touch(f, "a")
+	err = hdf5touch.TouchGroup(f, "a")
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
 
-	err = hdf5touch.Touch(f, "a/b")
+	err = hdf5touch.TouchGroup(f, "a/b")
 
 	if assert.NoError(t, err) {
 		assert.True(t, f.LinkExists("a/b"))

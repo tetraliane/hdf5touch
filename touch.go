@@ -7,14 +7,14 @@ import (
 	"gonum.org/v1/hdf5"
 )
 
-func Touch(f *hdf5.File, name string) error {
+func TouchGroup(f *hdf5.File, name string) error {
 	pl := strings.Split(name, "/")
 	for i := range len(pl) + 1 {
 		n := filepath.Join(pl[0:i]...)
 		if len(n) == 0 {
 			continue
 		}
-		err := touch(f, n)
+		err := makeGroup(f, n)
 		if err != nil {
 			return err
 		}
@@ -22,7 +22,7 @@ func Touch(f *hdf5.File, name string) error {
 	return nil
 }
 
-func touch(f *hdf5.File, name string) error {
+func makeGroup(f *hdf5.File, name string) error {
 	if f.LinkExists(name) {
 		return nil
 	}
@@ -34,4 +34,3 @@ func touch(f *hdf5.File, name string) error {
 	g.Close()
 	return nil
 }
-
